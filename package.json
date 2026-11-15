@@ -1,0 +1,56 @@
+{
+  "name": "tero-browser",
+  "version": "1.0.0",
+  "description": "Tero Browser — A modern Chromium-based web browser",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win portable",
+    "build:installer": "electron-builder --win nsis"
+  },
+  "author": "Tero Team",
+  "license": "MIT",
+  "build": {
+    "appId": "com.tero.browser",
+    "productName": "Tero Browser",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.jpg"
+    },
+    "portable": {
+      "artifactName": "TeroBrowser.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "TeroBrowser-Setup.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "electron-builder@25.1.8": true
+  }
+}

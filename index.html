@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tero Browser</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Custom Title Bar -->
+  <div id="titlebar">
+    <div id="titlebar-drag">
+      <div id="titlebar-logo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#7c5cff"/>
+              <stop offset="100%" style="stop-color:#4fc3f7"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 6h16v3H14v11h-4V9H4V6z" fill="url(#logoGrad)"/>
+        </svg>
+        <span>Tero Browser</span>
+      </div>
+    </div>
+    <div id="window-controls">
+      <button id="btn-minimize" class="window-btn" title="Minimizar">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect y="5" width="12" height="1.5" rx="0.75" fill="currentColor"/></svg>
+      </button>
+      <button id="btn-maximize" class="window-btn" title="Maximizar">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <button id="btn-close" class="window-btn close-btn" title="Fechar">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M1.5 1.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div id="tabbar">
+    <div id="tabs-container">
+      <!-- Tabs are dynamically created -->
+    </div>
+    <button id="btn-new-tab" class="tab-action-btn" title="Nova aba (Ctrl+T)">
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div id="navbar">
+    <div id="nav-controls">
+      <button id="btn-back" class="nav-btn" title="Voltar (Alt+←)" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="btn-forward" class="nav-btn" title="Avançar (Alt+→)" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="btn-reload" class="nav-btn" title="Recarregar (Ctrl+R)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M1 4v6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="btn-home" class="nav-btn" title="Página inicial">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div id="url-container">
+      <div id="security-icon" class="url-icon" title="Conexão segura">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <input type="text" id="url-input" placeholder="Pesquisar ou digitar URL" spellcheck="false" autocomplete="off">
+      <div id="url-actions">
+        <button id="btn-bookmark" class="url-action-btn" title="Adicionar aos favoritos">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="nav-actions">
+      <button id="btn-adshield" class="nav-btn secure" title="AdShield: Ativo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="btn-downloads" class="nav-btn" title="Downloads">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button id="btn-sidebar-toggle" class="nav-btn" title="Painel lateral">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><line x1="9" y1="3" x2="9" y2="21" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+      <button id="btn-menu" class="nav-btn" title="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bookmarks Bar -->
+  <div id="bookmarks-bar" class="hidden">
+    <div id="bookmarks-bar-list"></div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div id="main-content">
+    <!-- Sidebar -->
+    <div id="sidebar" class="hidden">
+      <div id="sidebar-header">
+        <div id="sidebar-tabs">
+          <button class="sidebar-tab active" data-panel="bookmarks">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Favoritos
+          </button>
+          <button class="sidebar-tab" data-panel="history">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Histórico
+          </button>
+        </div>
+      </div>
+      <div id="sidebar-content">
+        <div id="panel-bookmarks" class="sidebar-panel active">
+          <div id="bookmarks-list" class="panel-list">
+            <!-- Bookmarks rendered here -->
+          </div>
+          <div class="panel-empty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.3"/></svg>
+            <p>Nenhum favorito salvo</p>
+          </div>
+        </div>
+        <div id="panel-history" class="sidebar-panel">
+          <div id="history-list" class="panel-list">
+            <!-- History rendered here -->
+          </div>
+          <div class="panel-empty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" opacity="0.3"/><polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/></svg>
+            <p>Nenhum histórico</p>
+          </div>
+          <button id="btn-clear-history" class="sidebar-action-btn">Limpar histórico</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Webview Container -->
+    <div id="webview-container">
+      <!-- New Tab Page (shown when no webview is loaded) -->
+      <div id="new-tab-page" class="active">
+        <div id="ntp-content">
+          <div id="ntp-logo">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none">
+              <defs>
+                <linearGradient id="ntpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#7c5cff"/>
+                  <stop offset="100%" style="stop-color:#4fc3f7"/>
+                </linearGradient>
+              </defs>
+              <path d="M4 6h16v3H14v11h-4V9H4V6z" fill="url(#ntpGrad)"/>
+            </svg>
+            <h1>Tero Browser</h1>
+            <p class="ntp-subtitle">Navegue com velocidade e estilo</p>
+          </div>
+          <div id="ntp-search">
+            <div id="ntp-search-container">
+              <div id="ntp-search-engine-selector" title="Mudar mecanismo de busca">
+                <span id="current-engine-icon">🔍</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <input type="text" id="ntp-search-input" placeholder="Pesquisar na web..." spellcheck="false" autocomplete="off">
+              <div id="ntp-search-engines-dropdown" class="hidden">
+                <div class="search-engine-option" data-engine="google">
+                  <span>🔍 Google</span>
+                </div>
+                <div class="search-engine-option" data-engine="duckduckgo">
+                  <span>🦆 DuckDuckGo</span>
+                </div>
+                <div class="search-engine-option" data-engine="bing">
+                  <span>🅱️ Bing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="ntp-shortcuts">
+            <!-- Quick access shortcuts -->
+          </div>
+          <div id="ntp-footer">
+            <span>Powered by Chromium</span>
+          </div>
+        </div>
+      </div>
+      <!-- Webviews are dynamically injected here -->
+    </div>
+  </div>
+
+  <!-- AdShield Panel -->
+  <div id="adshield-panel" class="hidden">
+    <div id="adshield-header">
+      <h3>AdShield</h3>
+      <button id="btn-close-adshield" class="panel-close-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="adshield-content">
+      <div class="adshield-status-row">
+        <span>Proteção ativa:</span>
+        <label class="switch">
+          <input type="checkbox" id="adshield-toggle-cb" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="adshield-stat-box">
+        <span class="adshield-stat-number" id="adshield-blocked-count">0</span>
+        <span class="adshield-stat-label">Anúncios bloqueados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Downloads Panel -->
+  <div id="downloads-panel" class="hidden">
+    <div id="downloads-header">
+      <h3>Downloads</h3>
+      <button id="btn-close-downloads" class="panel-close-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="downloads-list">
+      <div class="panel-empty">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="1.5" opacity="0.3"/><polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="1.5" opacity="0.3"/><line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="1.5" opacity="0.3"/></svg>
+        <p>Nenhum download</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context Menu (hidden by default) -->
+  <div id="context-menu" class="hidden">
+    <!-- Populated dynamically -->
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
